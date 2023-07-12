@@ -39,6 +39,36 @@
             </div>
         </div>
     </div>
-</div>
+<script>
+
+const apiKey = "3c66c57a1dfe5637c3cf09bd812b60de";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=bangalore";
+
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+
+async function checkWeather(city)
+    {
+        const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+        var data = await response.json();
+
+        console.log(data);
+
+        document.querySelector(".city").innerHTML = data.name;
+        document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "&deg;C";
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";    
+        
+        
+    }
+
+searchBtn.addEventListener("click", ()=>
+{
+    checkWeather(searchBox.value);
+})
+
+checkWeather(city);
+</script>
+
 </body>
 </html>
